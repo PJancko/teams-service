@@ -9,4 +9,7 @@ const TeamMember = sequelize.define('TeamMember', {
   role: { type: DataTypes.ENUM('CAPTAIN', 'MEMBER'), defaultValue: 'MEMBER' },
 });
 
+Team.hasMany(TeamMember, { foreignKey: 'teamId' });
+TeamMember.belongsTo(Team, { foreignKey: 'teamId' });
+
 export default TeamMember;

@@ -1,13 +1,18 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../config/db.js';
-import Team from './team.model.js';
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
 
-const TeamInvitation = sequelize.define('TeamInvitation', {
-  id: { type: DataTypes.UUID, primaryKey: true },
-  teamId: { type: DataTypes.UUID, references: { model: Team, key: 'id' } },
-  email: { type: DataTypes.STRING, allowNull: false },
+const TeamInvitation = sequelize.define("TeamInvitation", {
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+
+  teamId: { type: DataTypes.UUID, allowNull: false },
+  userId: { type: DataTypes.UUID, allowNull: false },
+
   token: { type: DataTypes.STRING, allowNull: false },
-  status: { type: DataTypes.ENUM('PENDING', 'ACCEPTED', 'DECLINED'), defaultValue: 'PENDING' },
+
+  status: {
+    type: DataTypes.ENUM("PENDING", "ACCEPTED", "REJECTED"),
+    defaultValue: "PENDING",
+  },
 });
 
 export default TeamInvitation;
